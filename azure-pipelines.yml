@@ -25,5 +25,5 @@ steps:
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'azure-conn-node-app'
-    appName: $(appName)
+    appName: 'darsasapp'
     package: app.zip
