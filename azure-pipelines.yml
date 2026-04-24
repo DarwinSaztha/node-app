@@ -18,8 +18,8 @@ steps:
     npm install
   displayName: 'Install dependencies'
 
-- script: |
-    zip -r app.zip .
+- powershell: |
+    Compress-Archive -Path * -DestinationPath app.zip
   displayName: 'Archive project'
 
 - task: AzureWebApp@1
