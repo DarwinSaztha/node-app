@@ -1,0 +1,29 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  appName: 'darsasapp'
+
+steps:
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+  displayName: 'Install dependencies'
+
+- script: |
+    zip -r app.zip .
+  displayName: 'Archive project'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'azure-conn-node-app'
+    appName: $(appName)
+    package: app.zip
