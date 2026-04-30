@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  name: Default
+  name: Default   # 👈 self-hosted agent
 
 variables:
   appName: 'darsasapp'
@@ -14,16 +14,15 @@ steps:
     versionSpec: '20.x'
   displayName: 'Install Node.js'
 
-- script: |
-    npm install
+- script: npm install
   displayName: 'Install dependencies'
 
-- powershell: |
-    Compress-Archive -Path * -DestinationPath app.zip
+# Windows-compatible zip
+- powershell: Compress-Archive -Path * -DestinationPath app.zip
   displayName: 'Archive project'
 
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'azure-conn-node-app'
+    azureSubscription: 'node'
     appName: 'darsasapp'
     package: app.zip
